@@ -1,7 +1,9 @@
 {
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "express": "^4.19.1",
     "joi": "^17.12.2",
+    "jsonwebtoken": "^9.0.2",
     "mysql": "^2.18.1",
     "node": "^21.7.1"
   },
@@ -16,5 +18,6 @@
   "author": "",
   "license": "ISC",
   "type": "commonjs",
+  "devDependencies": {},
   "description": ""
 }
