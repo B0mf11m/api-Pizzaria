@@ -8,4 +8,10 @@ router.get("/", (req, res) => {
 const clienteController = require('./clienteController');
 
 router.get('/clientes',clienteController.listarCliente);
+router.get('/clientes/:cpf',clienteController.buscarClientes);
+router.post('clientes/:cpf',clienteController.adcionarClientes);
+router.patch('/clientes/:cpf',clienteController.atualizarCliente);
+router.delete('/clientes/:cpf',clienteController.deletarCliente);
+
+
 module.exports = router;
