@@ -6,12 +6,24 @@ router.get("/", (req, res) => {
 })
 
 const clienteController = require('./clienteController');
+const loginController = require('./loginController');
+const produtoController = require('./produtoController');
 
-router.get('/clientes',clienteController.listarCliente);
-router.get('/clientes/:cpf',clienteController.buscarClientes);
+//************************************************CLIENTE************************************************
+router.get('/clientes',loginController.autenticartoken,clienteController.listarCliente);
+router.get('/clientes/:cpf',loginController.autenticartoken,clienteController.buscarClientes);
 router.post('clientes/:cpf',clienteController.adcionarClientes);
-router.patch('/clientes/:cpf',clienteController.atualizarCliente);
-router.delete('/clientes/:cpf',clienteController.deletarCliente);
+router.patch('/clientes/:cpf',loginController.autenticartoken,clienteController.atualizarCliente);
+router.delete('/clientes/:cpf',loginController.autenticartoken,clienteController.deletarCliente);
+router.post('/login',loginController.loginCliente);
+//************************************************PRODUTO************************************************
+router.get('/produto',produtoController.listatProdutos);
+router.get('/produto/:id_produto',produtoController.buscarProdutos_id);
+router.get('/produto/nome/:nome',produtoController.buscarProdutos_nome);
+router.post('/produto/id_produto',produtoController.adcionarProduto);
+
+
+
 
 
 module.exports = router;
