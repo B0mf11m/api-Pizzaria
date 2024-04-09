@@ -8,7 +8,7 @@ const produtoShema= joi.object({
     valor_unitario:joi.string().required(),
     imagem:joi.string().required()
 });
-exports.listatProdutos=(req, res) => {
+exports.listarProdutos=(req, res) => {
     db.query('SELECT * FROM produto', (err, result) => {
         if (err) {
             console.error('Erro ao buscar o produto:', err);
@@ -79,4 +79,33 @@ exports.adcionarProduto = (req,res) =>{
         });
     }
 
-   
+    exports.atualizarProduto= (req,res)=>{
+        const{id_produto} = req.params;
+        const{nome,descricao,valor_unitario,imagem} = req.body;
+        const{eror}= produtoShema.validate({id_produto,nome,descricao,valor_unitario,imagem});
+        if(error){
+            res.status(400).json({error: 'Dados do Produto invalidos'});
+            return;
+        }
+            db.query('UPDATE produto SET ? WHERE id_produto=?',[atualizarProduto,id_produto],(err,result)=>{
+                if(err){
+                    console.error('Erro ao atualizar o Produto',err);
+                    res.status(500).json({error: 'Erro  interno do servidor'});
+                    return;
+                }
+                res.json({message: 'Produto atualizado com sucesso'});
+            });
+        
+    
+    };
+    exports.deletarProduto= (req,res)=>{
+        const {id_produto}= req.params;
+        db.query('DELET FROM produto WHERE id_produto=?',id_produto,(err,result)=>{
+            if(err){
+                console.error('Erro ao deletar produto:',err);
+                res.status(500).json({error:'erro interno no servidor'});
+                return;
+            }
+            res.json({message:'PRODUTO DELETADO COM SUCESSO '});
+        });
+    };
